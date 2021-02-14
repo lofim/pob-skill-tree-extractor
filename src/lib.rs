@@ -38,19 +38,20 @@ fn add_namespace(xml: String) -> String {
 }
 
 fn extract_url(root: Element) -> Option<String> {
-    for element in root.children() {
-        if element.name() == "Tree" {
-            for spec_element in element.children() {
-                if let Some(version_attr) = spec_element.attr("treeVersion") {
-                    if version_attr == "3_13" {
-                        let xml = spec_element.get_child("URL", "pob").map(Element::text);
+    let mut tree_elements: Vec<&Element> = root
+        .children()
+        .filter(|element| element.is("Tree", "pob"))
+        .flat_map(|element| element.children())
+        .filter(|element| element.attr("treeVersion").is_some())
+        .collect();
 
-                        return xml;
-                    }
-                }
-            }
-        }
-    }
+    // We can unwrap safely because we operate on list filtered with treeVersion
+    tree_elements.sort_by_key(|element| element.attr("treeVersion").unwrap());
+    let url = tree_elements
+        .last()
+        .unwrap()
+        .get_child("URL", "pob")
+        .map(Element::text);
 
-    None
+    url
 }

@@ -19,10 +19,11 @@ Open the url in browser and enjoy browsing the skill tree without access to POB.
 ## Roadmap
 
 - [x] make the app take pastebin as parameter instead of base64 encoded content
-- [ ] create a web version instead of cmd line app (compile to webassembly)
-- [ ] extract latest version of the skill tree by default
+- [x] extract latest version of the skill tree by default
 - [ ] configure which version of skill tree to extract
+- [ ] create a web version instead of cmd line app (compile to webassembly)
+
 
 ## Notes
 
-- tries to extract a skill tree of version 3_13
+- tested with skill tree of version 3_13
