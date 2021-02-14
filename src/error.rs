@@ -4,6 +4,7 @@ pub enum Error {
     URLNotFoundError,
     DecodeError(base64::DecodeError),
     IOError(std::io::Error),
+    ReqwestError(reqwest::Error),
 }
 
 impl From<std::io::Error> for Error {
@@ -21,5 +22,11 @@ impl From<base64::DecodeError> for Error {
 impl From<minidom::Error> for Error {
     fn from(error: minidom::Error) -> Self {
         Error::XMLParseError(error)
+    }
+}
+
+impl From<reqwest::Error> for Error {
+    fn from(error: reqwest::Error) -> Self {
+        Error::ReqwestError(error)
     }
 }

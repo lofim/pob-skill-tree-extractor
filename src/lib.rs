@@ -1,9 +1,9 @@
-mod error;
-
-use std::{io, io::Read};
 use base64::{decode, DecodeError};
 use flate2::bufread::ZlibDecoder;
 use minidom::Element;
+use std::{io, io::Read};
+
+mod error;
 
 pub use error::Error;
 
